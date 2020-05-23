@@ -14,6 +14,8 @@ func main() {
 
 	r.POST("/grafana", PostBody())
 
+	r.DELETE("/grafana", DeleteBody())
+
 	// Listen and Server in https://127.0.0.1:8080
 	// r.RunTLS(":8080", "./testdata/server.pem", "./testdata/server.key")
 	r.Run(":8080")

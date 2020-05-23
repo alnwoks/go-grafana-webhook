@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -33,10 +32,22 @@ func PostBody() gin.HandlerFunc {
 				"message": err.Error(),
 			})
 		} else {
-			fmt.Println(body.Title)
-			AddNew(&body)
-			c.JSON(http.StatusAccepted, body)
+			res := AddNew(&body)
+			c.JSON(http.StatusAccepted, gin.H{
+				"id": res,
+			})
 
 		}
+	}
+}
+
+//DeleteBody is used to delete all documents in the collection
+func DeleteBody() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		Delete()
+		c.JSON(http.StatusOK, gin.H{
+			"status": "deleted",
+		})
+
 	}
 }
